@@ -1,0 +1,93 @@
+from sqlalchemy import create_engine, ForeignKey
+from sqlalchemy import Column, Date, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm.session import sessionmaker
+from sqlalchemy.sql.sqltypes import Boolean
+
+engine = create_engine ('sqlite:///data.db', echo = True)
+Base = declarative_base()                   
+
+class Users(Base):
+    __tablename__ = 'Users'
+    
+    user_id = Column(String, primary_key=True)
+    fullname = Column(String)
+    email = Column(String)
+    password = Column(String)
+    role = Column(String)
+    
+    def __repr__(self):
+        return "<Users(user_id='%s', fullname='%s', email='%s', password='%s', role='%s')>" % (self.user_id, self.fullname, self.email, self.password, self.role)
+    
+class Questionary(Base):
+    __tablename__ = 'Questionary'
+    
+    id = Column(String, primary_key=True)
+    maker = Column(String, ForeignKey(Users.user_id))
+    isactive = Column(Boolean)
+    
+    def __repr__(self):
+        return "<Questionary(id='%s', maker='%s', isactive='%s')>" % (self.id, self.user.user_id, self.isactive)
+    
+class Questions(Base):
+    __tablename__ = 'Questions'
+    
+    id = Column(String, primary_key=True)
+    text = Column(String)
+    questionary = Column(String, ForeignKey(Questionary.id))
+    type = Column(String)
+    
+    
+class Multiple(Base):
+    __tablename__ = 'Multiple'
+    id = Column(String, ForeignKey(Questions.id), primary_key=True)
+    option_a = Column(String)
+    option_b = Column(String)
+    option_c = Column(String)
+    option_d = Column(String)
+    
+class Open(Base):
+    __tablename__ = 'Open'
+    id = Column(String, ForeignKey(Questions.id), primary_key=True)
+
+class Answers(Base):
+    __tablename__ = 'Answers'
+    id = Column(String, ForeignKey(Questions.id), primary_key=True)
+    answer = Column(String)
+    user = Column(String, ForeignKey(Users.user_id))
+    
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)       # factory
+session = Session()
+
+users = [Users(user_id='Al', fullname='Alvise Costa', email='874739@stud.unive.it', password='password77', role='administrator'),
+         Users(user_id='Michele', fullname='', email='870677@stud.unive.it ', password='password89', role='base'),
+         Users(user_id='Simone', fullname='', email='858807@stud.unive.it', password='password69', role='base'),
+         Users(user_id='Rossi05', fullname='', email='mariorossi@gmail.com', password='fiorellino99', role='base'),
+         Users(user_id='Topolino', fullname='Mickey Mouse', email='ruleroftheworld@disney.com', password='squit', role='base'),
+         Users(user_id='Paperino', fullname='Donald Duck', email='donalduck@disney.com', password='quak', role='base'),
+         Users(user_id='Pippo', fullname='Goofy', email='pippolando17@disney.com', password='wof', role='base'),
+         Users(user_id='Raffaetà', fullname='Alessandra Raffaetà  ', email='raffaeta@unive.it', password='hjkUyjk522c..oo', role='base'),
+         Users(user_id='Calzavara', fullname='Stefano Calzavara', email='stefano.calzavara@unive.it', password='39845sfdkfjs8766', role='base')]
+
+questionaries = [Questionary(id='46279', maker='Al', isactive=False)]
+
+questions = [Questions(id='75332', text='Quanti anni hai?', questionary='46279', type='Multiple'),
+             Questions(id='63189', text='Qualè il tuo film Preferito?', questionary='46279', type='Open')]
+
+multiples = [Multiple(id='75332', option_a='meno di 20', option_b='meno di 40', option_c='meno di 80', option_d='più di 80')]
+
+opens = [Open(id='63189')]
+
+answers = [Answers(id='75332', answer='B', user='Rossi05'),
+           Answers(id='63189', answer='The Suicide Squad - Missione Suicida', user='Rossi05')]
+
+session.add_all(users)
+session.add_all(questionaries)
+session.add_all(questions)
+session.add_all(multiples)
+session.add_all(opens)
+session.add_all(answers)
+session.commit()
