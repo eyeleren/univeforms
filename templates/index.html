@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>landing home</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script> <!-- bootstrap js -->
+    <script src="../static/js/jquery-3.6.0.min.js"></script> <!-- jquery -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- css bootstrap -->
+
+    <link href="../static/sl.css" rel="stylesheet"> <!-- css pagina template -->
+
+
+</head>
+
+
+
+<body class="d-flex flex-column h-100">
+
+    <!-- navigation menu -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <!-- icona home -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-file-earmark-bar-graph-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm.5 10v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z" />
+                </svg>
+            </a>
+            <!-- dropdown menu mobile, probabilmente not needed -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signup_page">Registrati</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login_page">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- titolo flex -->
+    <div class="jumbotron">
+        <h1 class="text-muted">univeForms</h1>
+        <p class="lead"></p>
+
+    </div>
+    <br>
+    <!-- body text -->
+    <div class="row marketing flex-grow-1">
+        <div class="col-lg-6">
+            <h4>La webapp per creare Form da condividere con chi vuoi!</h4>
+            <br>
+            <br>
+            <p>Crea, condividi ed analizza. Il miglior tool sul web</p>
+
+        </div>
+
+    </div>
+    <p></p>
+    <img src="https://www.magnews.it/wp-content/uploads/2020/03/creare-survey-successo-1.jpg"
+        style="width:400px;height:200px;">
+
+    <p></p>
+
+    <!-- footer di pagina -->
+    <footer class="footer mt-auto py-3" style="background-color: #e3f2fd;">
+        <div class="container">
+            <span class="text-muted">&copy; univeForms 2021 - All rights reserved</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
