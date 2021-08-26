@@ -53,7 +53,7 @@
 
     <!-- titolo flex -->
     <div class="jumbotron">
-        <h1 class="text-muted">univeForms</h1>
+        <h1 class="text-muted">univeForms - Nuovo Sondaggio</h1>
         <p class="lead"></p>
     </div>
 
@@ -70,7 +70,7 @@
             {% for i in range(Num_Open_Q) %}
             <tr>
                 <td>
-                    <input type="text" name="Open_Q-{{i}}" class="form-control" placeholder="Domdanda" required
+                    <input type="text" name="Open_Q-{{i}}" class="form-control" placeholder="Domanda" required
                         autofocus>
                 </td>
             </tr>
@@ -83,7 +83,7 @@
         <table>
             {% for i in range(Num_Multiple_Q) %}
             <tr>
-                <td><input type="text" name="Multiple_Q-{{i}}" class="form-control" placeholder="Domdanda" required
+                <td><input type="text" name="Multiple_Q-{{i}}" class="form-control" placeholder="Domanda" required
                         autofocus></td>
                 <td><input type="text" name="Answer-A-{{i}}" class="form-control" placeholder="Risposta A" required
                         autofocus></td>
@@ -97,7 +97,18 @@
             </tr>
             {% endfor %}
         </table>
-        <p></p>
+        <br>
+        <h4>Inserisci email destinatari:</h4>
+        <table>
+            <tr>
+                <td><input type="text" name="email_1" id="inputEmail" class="form-control" placeholder="e-mail" required autofocus></td>
+                <td><input type="text" name="email_2" id="inputEmail" class="form-control" placeholder="e-mail" autofocus></td>
+                <td><input type="text" name="email_3" id="inputEmail" class="form-control" placeholder="e-mail" autofocus></td>
+                <td><input type="text" name="email_4" id="inputEmail" class="form-control" placeholder="e-mail" autofocus></td>
+                <td><input type="text" name="email_5" id="inputEmail" class="form-control" placeholder="e-mail" autofocus></td>
+            </tr>
+        </table>
+        <br>
         <input type="submit">
     </form>
 
@@ -109,9 +120,6 @@
             <span class="text-muted">&copy; univeForms 2021 - All rights reserved</span>
         </div>
     </footer>
-
-
-
 </body>
 
 </html>

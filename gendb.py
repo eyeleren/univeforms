@@ -1,14 +1,23 @@
 from sqlalchemy import create_engine, ForeignKey
-from sqlalchemy import Column, Date, Integer, String
+from sqlalchemy import Table, Column, Date, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm.session import sessionmaker
 from sqlalchemy.sql.sqltypes import Boolean
 
+
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 
 engine = create_engine ('sqlite:///database.db', echo = True)
 Base = declarative_base()                   
+
+users_surveys = Table('users_surveys', Base.metadata,
+                      Column('user_id', ForeignKey('Users.id'), primary_key=True),
+                      Column('survey_id', ForeignKey('Surveys.id'), primary_key=True))
+
+recipients_shared_surveys = Table('recipients_shared_surveys', Base.metadata,
+                                        Column('recipient_id', ForeignKey('Users.id'), primary_key=True),
+                                        Column('shared_survey_id', ForeignKey('Surveys.id'), primary_key=True))
 
 class User(Base, UserMixin):
     __tablename__ = 'Users'
@@ -30,12 +39,16 @@ class Survey(Base):
     user_id = Column(String, ForeignKey(User.id))
     isactive = Column(Boolean)
     
-    user = relationship(User, back_populates='surveys') #qui viene sfruttata la Foreign Key
+    maker = relationship(User, back_populates='published_surveys') #qui viene sfruttata la Foreign Key
+    recipients = relationship(User, secondary=recipients_shared_surveys, back_populates='shared_surveys')
+    respondents = relationship(User, secondary=users_surveys, back_populates='completed_surveys') 
 
     def __repr__(self):
         return "<Survey(id='%s', title='%s', user_id='%s', isactive='%s')>" % (self.id, self.title, self.user_id, self.isactive)
     
-User.surveys = relationship(Survey, order_by=Survey.id, back_populates='user', cascade='all, delete, delete-orphan')
+User.published_surveys = relationship(Survey, order_by=Survey.id, back_populates='maker', cascade='all, delete, delete-orphan')
+User.shared_surveys = relationship(Survey, secondary=recipients_shared_surveys, back_populates='recipients')
+User.completed_surveys =  relationship(Survey, secondary=users_surveys, back_populates='respondents')
 
 class Question(Base):
     __tablename__ = 'Questions'

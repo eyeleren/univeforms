@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>survey answers</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script> <!-- bootstrap js -->
+  <script src="../static/js/jquery-3.6.0.min.js"></script> <!-- jquery -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <!-- css bootstrap -->
+
+  <link href="../static/sl.css" rel="stylesheet"> <!-- css pagina template -->
+
+</head>
+
+
+
+<body>
+
+  <!-- navigation menu -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <!-- icona home -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          class="bi bi-file-earmark-bar-graph-fill" viewBox="0 0 16 16">
+          <path
+            d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm.5 10v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z" />
+        </svg>
+      </a>
+      <!-- dropdown menu mobile, probabilmente not needed -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="http://localhost:5000">
+                    Area Personale</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <!-- title -->
+    <div class="jumbotron">
+        <h1 class="text-muted">univeForms - Review Sondaggio</h1>
+        <p class="lead"></p>
+    </div>
+    <br>
+
+    <h4>Sondaggio: {{title}}</h4>
+
+    <!-- body pagina -->
+    <form action='/show_report' method="POST" class="form-signin">
+        <table>
+            <tr><td colspan="3">Filtra per utente:</td></tr>
+            <tr>
+                <td><input type="text" name="user_email_1" id="inputEmail" class="form-control" placeholder="User e-mail" autofocus></td>
+                <td><input type="text" name="user_email_2" id="inputEmail" class="form-control" placeholder="User e-mail" autofocus></td>
+                <td><input type="text" name="user_email_3" id="inputEmail" class="form-control" placeholder="User e-mail" autofocus></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="user_fullname_1" id="inputEmail" class="form-control" placeholder="User fullname" autofocus></td>
+                <td><input type="text" name="user_fullname_2" id="inputEmail" class="form-control" placeholder="User fullname" autofocus></td>
+                <td><input type="text" name="user_fullname_3" id="inputEmail" class="form-control" placeholder="User fullname" autofocus></td>
+            </tr>
+            <br>
+            <tr><td colspan="3">Filtra per tipo domanda:</td></tr>
+                <td><input type="radio" name="type" id="all" value="all" checked="checked">
+                    <label for="all">Tutte le domande</label></td>
+                <td><input type="radio" name="type" id="only_O_Q" value="only_O_Q">
+                    <label for="only_O_Q">Domande aperte</label></td>
+                <td><input type="radio" name="type" id="only_M_Q" value="only_M_Q">
+                    <label for="only_M_Q">Domande risposta multipla</label></td>
+            </tr>
+            <p></p>
+            <tr><td colspan="3">Domande Aperte</td></tr>
+            <p></p>
+            <tr><td colspan="3">Filtra per parola chiave:</td></tr>
+            <tr>
+                <td><input type="text" name="Keyword_1" id="inputEmail" class="form-control" placeholder="Parola Chiave" autofocus></td>
+                <td><input type="text" name="Keyword_2" id="inputEmail" class="form-control" placeholder="Parola Chiave" autofocus></td>
+                <td><input type="text" name="Keyword_3" id="inputEmail" class="form-control" placeholder="Parola Chiave" autofocus></td>
+            </tr>
+            <p></p>
+            <tr><td colspan="4">Domande Risposta Multipla</td></tr>
+            <tr><td colspan="4">Filtra per risposta:</td></tr>
+            <tr>
+                <td><input type="checkbox" name="A" id="A" value="A">
+                    <label for="A">A</label></td>
+                <td><input type="checkbox" name="B" id="B" value="B">
+                    <label for="B">B</label></td>
+                <td><input type="checkbox" name="C" id="C" value="C">
+                    <label for="C">C</label></td>
+                <td><input type="checkbox" name="D" id="D" value="D">
+                    <label for="D">D</label></td>
+            </tr>
+        </table>
+        <p></p>
+        <input type="submit">
+    </form>
+
+    <!-- footer di pagina -->
+    <footer class="footer mt-auto py-3" style="background-color: #e3f2fd;">
+        <div class="container">
+            <span class="text-muted">&copy; univeForms 2021 - All rights reserved</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

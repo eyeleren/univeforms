@@ -59,7 +59,7 @@
             <form action="newsurvey_page" method='POST'>
                 <p>Numero domande aperte:</p>
                 <input type="number" name="Num_Open_Q" id="inputName" class="form-control" value="1" required autofocus>
-
+                <br>
                 <p>Numero domande chiuse:</p>
                 <input type="number" name="Num_Multiple_Q" id="inputName" class="form-control" value="1" required
                     autofocus>
@@ -73,24 +73,37 @@
         <!-- sondaggi attivi / conclusi  -->
         <div class="row marketing">
             <div class="col-lg-6">
+
+                <h4>Sondaggi condivisi con te:</h4>
+
+                <div class="list-group">
+                    {% for s in  shared_surveys %}
+                        <a href="/survey_page/{{s.id}}" class="btn btn-success ">{{s.title}}</a>
+                        <p></p>
+                    {% endfor %}
+                </div>    
+
                 <h4>I tuoi sondaggi attivi:</h4>
 
                 <div class="list-group">
-                    {% for s in active_surveys %}
-                    <a href="/survey_page/{{s.id}}" class="btn btn-success ">{{s.title}}</a>
+                    {% for s in  active_surveys %}
+                        <a href="/survey_page/{{s.id}}" class="btn btn-success ">{{s.title}}</a>
+                        <p></p>
                     {% endfor %}
                 </div>
-                <p></p>
+
                 <h4>I tuoi sondaggi conclusi:</h4>
 
                 <div class="list-group">
                     {% for s in surveys_concluded %}
-                    <a href="/survey_page/{{s.id}}"
-                        class="list-group-item list-group-item-action list-group-item-success">{{s.title}}</a>
+                        <a href="/survey_page/{{s.id}}" class="list-group-item list-group-item-action list-group-item-success">{{s.title}}</a>
+                        <p></p>
                     {% endfor %}
-                    <p></p>
                 </div>
+
+                
             </div>
+
         </div>
 
 

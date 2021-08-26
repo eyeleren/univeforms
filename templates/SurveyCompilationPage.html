@@ -2,8 +2,7 @@
 <html lang="it">
 
 <head>
-    <title>survey</title>
-
+    <title>survey compilation</title>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
@@ -16,11 +15,12 @@
 
     <link href="../static/sl.css" rel="stylesheet"> <!-- css pagina template -->
 
+
 </head>
 
 
 
-<body class="d-flex flex-column h-100">
+<body>
 
     <!-- navigation menu -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
@@ -45,15 +45,10 @@
                         <a class="nav-link active" aria-current="page" href="http://localhost:5000">
                             Area Personale</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="logout">Logout</a>
-                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-
 
     <!-- titolo flex -->
     <div class="jumbotron">
@@ -62,56 +57,47 @@
 
     </div>
     <br>
-
-    <!-- titolo questionario -->
-    <h3>{{title}}</h3>
+    <h4>Sondaggio: {{title}}</h4>
     <br>
 
-    <form action='answer' method="POST" class="form-signin">
+    <form action='/answer' method="POST" class="form-signin">
 
-        <!-- domdande aperte -->
-        <h4>Domande aperte:</h4>
-        <table>
-            {% for q in Open_Q %}
-            <tr>
-                <!-- &nbsp = spazio -->
-                <td>{{q.text}} &nbsp; </td>
-                <td><input type="text" name="answer" id="inputEmail" class="form-control" placeholder="Risposta"
-                        required autofocus></td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
+        <!-- domande aperte -->
+        <h4>Domdande Aperte:</h4>
+            <table>
+                {% for q in Open_Q %}
+                    <tr>
+                        <td>{{q.text}}</td>
+                        <td><input type="text" name="O_Ans-{{q.id}}" id="inputEmail" class="form-control" placeholder="Risposta" required autofocus></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <br>
+
         <!-- domande risposta multipla -->
         <h4>Domande risposta multipla:</h4>
-        <table>
-            {% for m in Multiple_Q %}
-            <tr>
-                <td>{{m[0].text}}</td>
-            </tr>
-            <tr>
-                <td><input type="radio" name="answer" id="A" value="{{m[1].option_a}}">
-                    <label for="A">{{m[1].option_a}}&nbsp;</label>
-                </td>
-
-                <td><input type="radio" name="answer" id="B" value="{{m[1].option_b}}">
-                    <label for="B">{{m[1].option_b}}&nbsp;</label>
-                </td>
-                <td><input type="radio" name="answer" id="C" value="{{m[1].option_c}}">
-                    <label for="C">{{m[1].option_c}}&nbsp;</label>
-                </td>
-                <td><input type="radio" name="answer" id="D" value="{{m[1].option_d}}">
-                    <label for="D">{{m[1].option_d}}&nbsp;</label>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-        <p></p>
+            <table>
+                {% for m in Multiple_Q %}
+                    <tr>
+                        <td>{{m[0].text}}</td>
+                    </tr>
+                    <p></p>
+                    <tr>
+                        <td><input type="radio" name="M_Ans_A-{{m[0].id}}" id="A" value="A">
+                            <label for="A">{{m[1].option_a}}</label></td>
+                        <td><input type="radio" name="M_Ans_B-{{m[0].id}}" id="B" value="B">
+                            <label for="B">{{m[1].option_b}}</label></td>
+                        <td><input type="radio" name="M_Ans_C-{{m[0].id}}" id="C" value="C">
+                            <label for="C">{{m[1].option_c}}</label></td>
+                        <td><input type="radio" name="M_Ans_D-{{m[0].id}}" id="D" value="D">
+                            <label for="D">{{m[1].option_d}}</label></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br>
         <input type="submit">
-
     </form>
-
-    <p></p>
 
     <!-- footer di pagina -->
     <footer class="footer mt-auto py-3" style="background-color: #e3f2fd;">
@@ -119,7 +105,6 @@
             <span class="text-muted">&copy; univeForms 2021 - All rights reserved</span>
         </div>
     </footer>
-
 </body>
 
 </html>
