@@ -42,7 +42,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="http://localhost:5000">
+                        <a class="nav-link active" aria-current="page" href="/prova">
                             Area Personale</a>
                     </li>
                 </ul>
@@ -60,7 +60,7 @@
     <h4>Sondaggio: {{title}}</h4>
     <br>
 
-    <form action='/answer' method="POST" class="form-signin">
+    <form action='/answer/{{report_id}}' method="POST" class="form-signin">
 
         <!-- domande aperte -->
         <h4>Domdande Aperte:</h4>
@@ -80,7 +80,7 @@
             <table>
                 {% for m in Multiple_Q %}
                     <tr>
-                        <td>{{m[0].text}}</td>
+                        <td colspan="4">{{m[0].text}}</td>
                     </tr>
                     <p></p>
                     <tr>

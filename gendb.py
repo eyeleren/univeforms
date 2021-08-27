@@ -25,8 +25,8 @@ class User(Base, UserMixin):
     id = Column(Integer, primary_key=True)
     fullname = Column(String)
     email = Column(String, primary_key=True)
-    password = Column(String)
-    role = Column(String)       #due ruoli possibili base - administrator
+    password = Column(String, nullable=False)
+    role = Column(String, nullable=False)       #due ruoli possibili base - administrator
 
     def __repr__(self):
         return "<Users(id='%s', fullname='%s', email='%s', password='%s', role='%s')>" % (self.id, self.fullname, self.email, self.password, self.role)
@@ -35,9 +35,9 @@ class Survey(Base):
     __tablename__ = 'Surveys'
     
     id = Column(String, primary_key=True)
-    title = Column(String)
-    user_id = Column(String, ForeignKey(User.id))
-    isactive = Column(Boolean)
+    title = Column(String, nullable=False)
+    user_id = Column(String, ForeignKey(User.id), nullable=False)
+    isactive = Column(Boolean, nullable=False)
     
     maker = relationship(User, back_populates='published_surveys') #qui viene sfruttata la Foreign Key
     recipients = relationship(User, secondary=recipients_shared_surveys, back_populates='shared_surveys')
@@ -54,9 +54,9 @@ class Question(Base):
     __tablename__ = 'Questions'
     
     id = Column(String, primary_key=True)
-    text = Column(String)
-    survey_id = Column(String, ForeignKey(Survey.id))
-    type = Column(String) # Multiple - Open
+    text = Column(String, nullable=False)
+    survey_id = Column(String, ForeignKey(Survey.id), nullable=False)
+    type = Column(String, nullable=False) # Multiple - Open
 
     survey = relationship(Survey, back_populates='questions') #qui viene sfruttata la Foreign Key
     
@@ -65,10 +65,10 @@ Survey.questions = relationship(Question, order_by=Question.id, back_populates='
 class Multiple_choice_question(Base):
     __tablename__ = 'Multiple_choice_questions'
     id = Column(String, ForeignKey(Question.id), primary_key=True)
-    option_a = Column(String)
-    option_b = Column(String)
-    option_c = Column(String)
-    option_d = Column(String)
+    option_a = Column(String, nullable=False)
+    option_b = Column(String, nullable=False)
+    option_c = Column(String, nullable=False)
+    option_d = Column(String, nullable=False)
     
     question = relationship(Question,uselist=False)
 
@@ -78,18 +78,30 @@ class Open_question(Base):
 
     question = relationship(Question,uselist=False)
 
+class Report(Base):
+    __tablename__ = 'Reports'
+    id = Column(Integer, primary_key=True)
+    survey_id = Column(String, ForeignKey(Survey.id), nullable=False)
+
+    survey = relationship(Survey, back_populates='report')
+
+Survey.report = relationship(Report, back_populates='survey')
+
 class Answer(Base):
     __tablename__ = 'Answers'
     id = Column(String, primary_key=True)
-    question_id = Column(String, ForeignKey(Question.id))
-    answer = Column(String)
-    user_id = Column(String, ForeignKey(User.id))
+    question_id = Column(String, ForeignKey(Question.id), nullable=False)
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
+    report_id = Column(Integer, ForeignKey(Report.id), nullable=False)
+    answer = Column(String, nullable=False)
     
+    report = relationship(Report, back_populates='answers')
     question = relationship(Question, back_populates='answers') #qui viene sfruttata la Foreign Key
     user = relationship(User, back_populates='answers') #qui viene sfruttata la Foreign Key
 
 User.answers = relationship(Answer, order_by=Answer.id, back_populates='user', cascade='all, delete, delete-orphan')
 Question.answers = relationship(Answer, order_by=Answer.id, back_populates='question', cascade='all, delete, delete-orphan')
+Report.answers = relationship(Answer, order_by=Answer.id, back_populates='report')
 
 Base.metadata.create_all(engine)
 

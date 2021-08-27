@@ -42,7 +42,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="http://localhost:5000">
+                <a class="nav-link active" aria-current="page" href="/private">
                     Area Personale</a>
             </li>
         </ul>
@@ -51,7 +51,7 @@
   </nav>
     <!-- title -->
     <div class="jumbotron">
-        <h1 class="text-muted">univeForms - Review Sondaggio</h1>
+        <h1 class="text-muted">univeForms - Report Sondaggio</h1>
         <p class="lead"></p>
     </div>
     <br>
@@ -59,7 +59,7 @@
     <h4>Sondaggio: {{title}}</h4>
 
     <!-- body pagina -->
-    <form action='/show_report' method="POST" class="form-signin">
+    <form action='/show_report/{{report_id}}' method="POST" class="form-signin">
         <table>
             <tr><td colspan="3">Filtra per utente:</td></tr>
             <tr>
@@ -76,10 +76,10 @@
             <tr><td colspan="3">Filtra per tipo domanda:</td></tr>
                 <td><input type="radio" name="type" id="all" value="all" checked="checked">
                     <label for="all">Tutte le domande</label></td>
-                <td><input type="radio" name="type" id="only_O_Q" value="only_O_Q">
-                    <label for="only_O_Q">Domande aperte</label></td>
-                <td><input type="radio" name="type" id="only_M_Q" value="only_M_Q">
-                    <label for="only_M_Q">Domande risposta multipla</label></td>
+                <td><input type="radio" name="type" id="Open" value="Open">
+                    <label for="Open">Domande aperte</label></td>
+                <td><input type="radio" name="type" id="Multiple" value="Multiple">
+                    <label for="Multiple">Domande risposta multipla</label></td>
             </tr>
             <p></p>
             <tr><td colspan="3">Domande Aperte</td></tr>
@@ -94,14 +94,14 @@
             <tr><td colspan="4">Domande Risposta Multipla</td></tr>
             <tr><td colspan="4">Filtra per risposta:</td></tr>
             <tr>
-                <td><input type="checkbox" name="A" id="A" value="A">
-                    <label for="A">A</label></td>
-                <td><input type="checkbox" name="B" id="B" value="B">
-                    <label for="B">B</label></td>
-                <td><input type="checkbox" name="C" id="C" value="C">
-                    <label for="C">C</label></td>
-                <td><input type="checkbox" name="D" id="D" value="D">
-                    <label for="D">D</label></td>
+                <td><input type="checkbox" name="Keyword_4" id="Keyword_4" value="Keyword_4">
+                    <label for="Keyword_4">A</label></td>
+                <td><input type="checkbox" name="Keyword_5" id="Keyword_5" value="Keyword_5">
+                    <label for="Keyword_5">B</label></td>
+                <td><input type="checkbox" name="Keyword_6" id="Keyword_6" value="Keyword_6">
+                    <label for="Keyword_6">C</label></td>
+                <td><input type="checkbox" name="Keyword_7" id="Keyword_7" value="Keyword_7">
+                    <label for="Keyword_7">D</label></td>
             </tr>
         </table>
         <p></p>

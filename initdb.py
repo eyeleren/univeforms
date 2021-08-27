@@ -8,9 +8,10 @@ from sqlalchemy.sql.sqltypes import Boolean
 from gendb import *
 
 class Id():
-    def __init__(self, user_id, survey_id, question_id, answer_id):
+    def __init__(self, user_id, survey_id, report_id, question_id, answer_id):
         self.user_id = user_id
         self.survey_id = survey_id
+        self.report_id = report_id
         self.question_id = question_id
         self.answer_id = answer_id
 
@@ -19,6 +20,9 @@ class Id():
 
     def get_survey_id(self):
         return self.survey_id
+
+    def get_report_id(self):
+        return self.report_id
 
     def get_question_id(self):
         return self.question_id 
@@ -34,6 +38,10 @@ class Id():
         self.survey_id += 1
         return self.survey_id
 
+    def increment_report_id(self):
+        self.report_id +=1
+        return self.report_id
+
     def increment_question_id(self):
         self.question_id += 1
         return self.question_id
@@ -47,13 +55,13 @@ session = Session()
 
 user_id = session.query(User).count()
 survey_id = session.query(Survey).count()
+report_id = session.query(Report).count()
 question_id = session.query(Question).count()
 answer_id = session.query(Answer).count()
 
 session.commit()
 
-id_management = Id(user_id,survey_id,
-                   question_id,answer_id)
+id_management = Id(user_id,survey_id,report_id, question_id,answer_id)
 
 def init_db():
 
@@ -67,6 +75,8 @@ def init_db():
 
     surveys = [Survey(id=id_management.increment_survey_id(), title='Prova', user_id='1', isactive=False, recipients=[users[1]], respondents=[users[1]] )]
 
+    report = [Report(id=id_management.increment_report_id(), survey_id='1', survey=surveys[0])]
+
     questions = [Question(id=id_management.increment_question_id(), text='Quanti anni hai?', survey_id='1', type='Multiple'),
                  Question(id=id_management.increment_question_id(), text='Qual è il tuo film Preferito?', survey_id='1', type='Open')]
 
@@ -74,8 +84,8 @@ def init_db():
 
     opens = [Open_question(id='2')]
 
-    answers = [Answer(id=id_management.increment_answer_id(), question_id='1', answer='B', user_id='2'),
-               Answer(id=id_management.increment_answer_id(), question_id='2', answer='The Suicide Squad - Missione Suicida', user_id='2')]
+    answers = [Answer(id=id_management.increment_answer_id(), question_id='1', answer='B', user_id='2', report_id='1'),
+               Answer(id=id_management.increment_answer_id(), question_id='2', answer='The Suicide Squad - Missione Suicida', user_id='2', report_id='1')]
 
     session.add_all(users)
     session.add_all(surveys)
