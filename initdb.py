@@ -73,7 +73,7 @@ def init_db():
              User(id=id_management.increment_user_id(), fullname='Donald Duck', email='Donald@disney.com', password='pwd', role='base'),
              User(id=id_management.increment_user_id(), fullname='Goofy Goof', email='Goofy@disney.com', password='pwd', role='base'),]
 
-    surveys = [Survey(id=id_management.increment_survey_id(), title='Prova', user_id='1', isactive=False, recipients=[users[1]], respondents=[users[1]] )]
+    surveys = [Survey(id=id_management.increment_survey_id(), title='Prova', user_id='1', isactive=True, recipients=[users[1]], respondents=[users[1]] )]
 
     report = [Report(id=id_management.increment_report_id(), survey_id='1', survey=surveys[0])]
 

@@ -79,7 +79,7 @@
                 <div class="list-group">
                     {% for s in  shared_surveys %}
                         <a href="/survey_page/{{s.id}}" class="btn btn-success ">{{s.title}}</a>
-                        <p></p>
+                        <br>
                     {% endfor %}
                 </div>    
 
@@ -88,6 +88,9 @@
                 <div class="list-group">
                     {% for s in  active_surveys %}
                         <a href="/survey_page/{{s.id}}" class="btn btn-success ">{{s.title}}</a>
+                        <form action="/close_survey" method='POST'>
+                            <button type="submit" name='id' value="{{s.id}}">Chiudi sondaggio</button>
+                        </form>
                         <p></p>
                     {% endfor %}
                 </div>

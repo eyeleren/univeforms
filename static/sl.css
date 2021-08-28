@@ -6,7 +6,7 @@ body {
 }
 
 .form-signin {
-  max-width: 330px;
+  max-width: 800px;
   padding: 15px;
   margin: 0 auto;
 }
@@ -44,4 +44,15 @@ body {
   max-width: 430px;
   padding: 15px;
   margin: 0 auto;
+}
+
+.filtertable th,
+td {
+  padding: 5px;
+  background-color: #e3f2fd;
+}
+
+.results {
+  margin-left: 300px;
+  margin-right: 300px;
 }

@@ -74,8 +74,10 @@ def login():
         Session = sessionmaker(bind=engine) #creazione della factory
         session = Session()
 
-        user = session.query(User).filter_by(email=request.form['inputEmail']).one()
-        real_pwd = user.password
+        real_pwd = None
+        user = session.query(User).filter_by(email=request.form['inputEmail']).first()
+        if user is not None:
+            real_pwd = user.password
 
         if (real_pwd is not None):
             if request.form['inputPassword'] == real_pwd:
@@ -142,6 +144,18 @@ def show_survey(survey_id):
         return render_template('SurveyViewingPage.html', title=survey.title, Open_Q_A=Open_Q_A , 
                            Multiple_Q_A=Multiple_Q_A)
 
+@app.route('/close_survey', methods=['POST'])
+@login_required
+def close_survey():
+    Session = sessionmaker(bind=engine) #creazione della factory
+    session = Session()
+
+    survey = session.query(Survey).filter_by(id=request.form['id']).first()
+    survey.isactive = False
+    session.commit()
+    
+    return redirect(url_for('private'))
+
 @app.route('/show_report/<report_id>', methods=['POST'])
 @login_required
 def show_report(report_id):
@@ -156,7 +170,7 @@ def show_report(report_id):
             return self.user_id & self.type & self.keyword
 
     report = session.query(Report).filter_by(id=report_id).one()
-    statistics = {'n_answer': 0, 'n_O_A': 0, 'n_M_A': 0}
+    statistics = [0,0,0]
     result = []
     for answer in report.answers:
         answers_filter = Filter()
@@ -174,11 +188,11 @@ def show_report(report_id):
                     answers_filter.keyword = (request.form[elem] in answer.answer)
 
         if answers_filter.is_accepted():
-            statistics['n_answer']+=1
+            statistics[0]+=1
             if answer.question.type == 'Open':
-                statistics['n_O_A']+=1
+                statistics[1]+=1
             else:
-                statistics['n_M_A']+=1
+                statistics[2]+=1
             result.append(answer)
 
     title = report.survey.title
@@ -202,7 +216,7 @@ def answer(report_id):
 
     return redirect(url_for('private'))
 
-@app.route('/newsurvey_page', methods=['POST'])
+@app.route('/newsurvey_page', methods=['GET','POST'])
 @login_required
 def show_newsurvey():
     Num_Open_Q = int(request.form['Num_Open_Q'])
@@ -219,7 +233,7 @@ def newsurvey():
     session = Session()
 
     survey = Survey(id=id_management.increment_survey_id(), title=request.form['survey_title'], 
-               user_id=current_user.id, isactive=True)
+               user_id=current_user.id, isactive=True, recipients=[])
 
     report = Report(id=id_management.increment_report_id(), survey_id=id_management.get_survey_id())
 
@@ -242,7 +256,9 @@ def newsurvey():
                     option_b=multiple_answers[1], option_c=multiple_answers[2], option_d=multiple_answers[3])
                     new_questions.append(new_question)
                     multiple_answers = []
-            else:
+            elif ('email'in elem) & (request.form[elem] != current_user.email):
+                print(current_user.email)
+                print(request.form[elem])
                 recipient = session.query(User).filter_by(email=request.form[elem]).first()
                 survey.recipients = [recipient]
 
@@ -250,7 +266,6 @@ def newsurvey():
     session.add(report)
     session.add_all(new_questions)
     session.commit()
-
     return redirect(url_for('private'))
 
 @app.route('/logout')

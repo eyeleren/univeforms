@@ -57,11 +57,10 @@
     <br>
 
     <h4>Sondaggio: {{title}}</h4>
-
     <!-- body pagina -->
     <form action='/show_report/{{report_id}}' method="POST" class="form-signin">
-        <table>
-            <tr><td colspan="3">Filtra per utente:</td></tr>
+        <table class='filtertable'>
+            <tr><th colspan="3">Filtra per utente:</th></tr>
             <tr>
                 <td><input type="text" name="user_email_1" id="inputEmail" class="form-control" placeholder="User e-mail" autofocus></td>
                 <td><input type="text" name="user_email_2" id="inputEmail" class="form-control" placeholder="User e-mail" autofocus></td>
@@ -73,7 +72,7 @@
                 <td><input type="text" name="user_fullname_3" id="inputEmail" class="form-control" placeholder="User fullname" autofocus></td>
             </tr>
             <br>
-            <tr><td colspan="3">Filtra per tipo domanda:</td></tr>
+            <tr><th colspan="3">Filtra per tipo domanda:</th></tr>
                 <td><input type="radio" name="type" id="all" value="all" checked="checked">
                     <label for="all">Tutte le domande</label></td>
                 <td><input type="radio" name="type" id="Open" value="Open">
@@ -82,17 +81,17 @@
                     <label for="Multiple">Domande risposta multipla</label></td>
             </tr>
             <p></p>
-            <tr><td colspan="3">Domande Aperte</td></tr>
+            <tr><th colspan="3">Domande Aperte</th></tr>
             <p></p>
-            <tr><td colspan="3">Filtra per parola chiave:</td></tr>
+            <tr><th colspan="3">Filtra per parola chiave:</th></tr>
             <tr>
                 <td><input type="text" name="Keyword_1" id="inputEmail" class="form-control" placeholder="Parola Chiave" autofocus></td>
                 <td><input type="text" name="Keyword_2" id="inputEmail" class="form-control" placeholder="Parola Chiave" autofocus></td>
                 <td><input type="text" name="Keyword_3" id="inputEmail" class="form-control" placeholder="Parola Chiave" autofocus></td>
             </tr>
             <p></p>
-            <tr><td colspan="4">Domande Risposta Multipla</td></tr>
-            <tr><td colspan="4">Filtra per risposta:</td></tr>
+            <tr><th colspan="4">Domande Risposta Multipla</th></tr>
+            <tr><th colspan="4">Filtra per risposta:</th></tr>
             <tr>
                 <td><input type="checkbox" name="Keyword_4" id="Keyword_4" value="Keyword_4">
                     <label for="Keyword_4">A</label></td>
